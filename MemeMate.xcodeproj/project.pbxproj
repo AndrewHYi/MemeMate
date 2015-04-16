@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4075180F1AD999B600C064FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4075180E1AD999B600C064FE /* AppDelegate.swift */; };
-		407518111AD999B600C064FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407518101AD999B600C064FE /* ViewController.swift */; };
-		407518141AD999B600C064FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 407518121AD999B600C064FE /* Main.storyboard */; };
+		407518111AD999B600C064FE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407518101AD999B600C064FE /* HomeViewController.swift */; };
 		407518161AD999B600C064FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 407518151AD999B600C064FE /* Images.xcassets */; };
 		407518191AD999B600C064FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 407518171AD999B600C064FE /* LaunchScreen.xib */; };
 		407518251AD999B600C064FE /* MemeMateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407518241AD999B600C064FE /* MemeMateTests.swift */; };
@@ -29,8 +28,7 @@
 		407518091AD999B600C064FE /* MemeMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4075180D1AD999B600C064FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4075180E1AD999B600C064FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		407518101AD999B600C064FE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		407518131AD999B600C064FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		407518101AD999B600C064FE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		407518151AD999B600C064FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		407518181AD999B600C064FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		4075181E1AD999B600C064FE /* MemeMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemeMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,8 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				4075180E1AD999B600C064FE /* AppDelegate.swift */,
-				407518101AD999B600C064FE /* ViewController.swift */,
-				407518121AD999B600C064FE /* Main.storyboard */,
+				407518101AD999B600C064FE /* HomeViewController.swift */,
 				407518151AD999B600C064FE /* Images.xcassets */,
 				407518171AD999B600C064FE /* LaunchScreen.xib */,
 				4075180C1AD999B600C064FE /* Supporting Files */,
@@ -192,7 +189,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				407518141AD999B600C064FE /* Main.storyboard in Resources */,
 				407518191AD999B600C064FE /* LaunchScreen.xib in Resources */,
 				407518161AD999B600C064FE /* Images.xcassets in Resources */,
 			);
@@ -212,7 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				407518111AD999B600C064FE /* ViewController.swift in Sources */,
+				407518111AD999B600C064FE /* HomeViewController.swift in Sources */,
 				4075180F1AD999B600C064FE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,14 +232,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		407518121AD999B600C064FE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				407518131AD999B600C064FE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		407518171AD999B600C064FE /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -409,6 +397,7 @@
 				4075182A1AD999B600C064FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4075182B1AD999B600C064FE /* Build configuration list for PBXNativeTarget "MemeMateTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +406,7 @@
 				4075182D1AD999B600C064FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
