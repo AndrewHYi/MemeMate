@@ -21,11 +21,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func pickAlbumImage() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        presentViewController(imagePickerController, animated: true, completion: nil)
+    func pickAlbumImage() {
+        let albumImagePickerController = UIImagePickerController()
+        albumImagePickerController.delegate = self
+        albumImagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        presentViewController(albumImagePickerController, animated: true, completion: nil)
+    }
+    
+    func pickCameraImage() {
+        let cameraImagePickerController = UIImagePickerController()
+        cameraImagePickerController.delegate = self
+        cameraImagePickerController.sourceType = UIImagePickerControllerSourceType.Camera
+        presentViewController(cameraImagePickerController, animated: true, completion: nil)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
@@ -45,9 +52,13 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // Add a bottom toolbar with "pick" and "camera" options
         let toolbar: UIToolbar = UIToolbar()
         let pickAlbumImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickAlbumImage")
+        let pickCameraImageButton = UIBarButtonItem(title: "Camera", style: .Done, target: self, action: "pickCameraImage")
         
+        // Disable camera button for devices without a camera
+        pickCameraImageButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
+
         toolbar.frame = CGRectMake(0, self.view.frame.size.height - 46, self.view.frame.size.width, 48)
-        toolbar.setItems([pickAlbumImageButton], animated: false)
+        toolbar.setItems([pickCameraImageButton, pickAlbumImageButton], animated: false)
         toolbar.backgroundColor = UIColor.grayColor()
         
         // Add all the subviews
