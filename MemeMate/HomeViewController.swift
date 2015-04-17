@@ -21,18 +21,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.didReceiveMemoryWarning()
     }
     
-    func pickAlbumImage() {
-        let albumImagePickerController = UIImagePickerController()
-        albumImagePickerController.delegate = self
-        albumImagePickerController.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        presentViewController(albumImagePickerController, animated: true, completion: nil)
-    }
-    
-    func pickCameraImage() {
-        let cameraImagePickerController = UIImagePickerController()
-        cameraImagePickerController.delegate = self
-        cameraImagePickerController.sourceType = UIImagePickerControllerSourceType.Camera
-        presentViewController(cameraImagePickerController, animated: true, completion: nil)
+    func pickImage(sender: UIBarButtonItem) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = UIImagePickerControllerSourceType(rawValue: sender.tag)!
+        presentViewController(imagePickerController, animated: true, completion: nil)
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
@@ -51,8 +44,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         // Add a bottom toolbar with "pick" and "camera" options
         let toolbar: UIToolbar = UIToolbar()
-        let pickAlbumImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickAlbumImage")
-        let pickCameraImageButton = UIBarButtonItem(title: "Camera", style: .Done, target: self, action: "pickCameraImage")
+        let pickAlbumImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickImage:")
+        pickAlbumImageButton.tag = UIImagePickerControllerSourceType.PhotoLibrary.rawValue
+        
+        let pickCameraImageButton = UIBarButtonItem(title: "Camera", style: .Done, target: self, action: "pickImage:")
+        pickCameraImageButton.tag = UIImagePickerControllerSourceType.Camera.rawValue
         
         // Disable camera button for devices without a camera
         pickCameraImageButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
