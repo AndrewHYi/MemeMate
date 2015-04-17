@@ -40,9 +40,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     // MARK: UI Setup
     private func setupUI() {
-        setupToolbar()
+        view.backgroundColor = UIColor.grayColor()
         setupImageView()
         setupTextFields()
+        setupToolbar()
     }
     
     private func setupToolbar() {
@@ -111,32 +112,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     private func setupImageView() {
         // Setup imageView - this is where the camera photo / the image selected from the photo gallery will appear
         imageView = UIImageView()
-        imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
         imageView.backgroundColor = UIColor.grayColor()
         imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        imageView.contentMode = UIViewContentMode.ScaleAspectFit
         
         view.addSubview(imageView)
-        
-        // Setup constraints
-        let imageWidthConstraint = NSLayoutConstraint(
-            item: imageView,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1,
-            constant: 200
-        )
-        
-        let imageHeightConstraint = NSLayoutConstraint(
-            item: imageView,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1,
-            constant: 200
-        )
         
         let imageVerticalCenterConstraint = NSLayoutConstraint(
             item: imageView,
@@ -147,6 +127,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             multiplier: 1.0,
             constant: 0.0
         )
+        
         let imageHorizontalCenterConstraint = NSLayoutConstraint(
             item: imageView,
             attribute: NSLayoutAttribute.CenterX,
@@ -157,9 +138,29 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             constant: 0.0
         )
         
+        let imageLeftConstraint = NSLayoutConstraint(
+            item: imageView,
+            attribute: NSLayoutAttribute.LeadingMargin,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.LeadingMargin,
+            multiplier: 1,
+            constant: 0
+        )
+        
+        let imageRightConstraint = NSLayoutConstraint(
+            item: imageView,
+            attribute: NSLayoutAttribute.TrailingMargin,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.TrailingMargin,
+            multiplier: 1,
+            constant: 0
+        )
+        
         view.addConstraints([
             imageVerticalCenterConstraint, imageHorizontalCenterConstraint,
-            imageWidthConstraint, imageHeightConstraint
+            imageLeftConstraint, imageRightConstraint
         ])
     }
     
