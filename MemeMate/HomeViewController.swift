@@ -36,12 +36,12 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     private func setupUI() {
-        // Setup imageView - this is where the camera photo / the image selected from the photo gallery will appear
-        imageView = UIImageView()
-        imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-        imageView.backgroundColor = UIColor.grayColor()
-        imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        
+        setupToolbar()
+        setupImageView()
+        setupTextFields()
+    }
+    
+    private func setupToolbar() {
         // Add a bottom toolbar with "pick" and "camera" options
         let toolbar: UIToolbar = UIToolbar()
         let pickAlbumImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickImage:")
@@ -52,17 +52,25 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         // Disable camera button for devices without a camera
         pickCameraImageButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
-
+        
         toolbar.frame = CGRectMake(0, self.view.frame.size.height - 46, self.view.frame.size.width, 48)
         toolbar.setItems([pickCameraImageButton, pickAlbumImageButton], animated: false)
         toolbar.backgroundColor = UIColor.grayColor()
         
-        // Add all the subviews
         view.addSubview(toolbar)
+    }
+    
+    private func setupImageView() {
+        // Setup imageView - this is where the camera photo / the image selected from the photo gallery will appear
+        imageView = UIImageView()
+        imageView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        imageView.backgroundColor = UIColor.grayColor()
+        imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        
         view.addSubview(imageView)
         
         // Setup constraints
-        var imageWidthConstraint = NSLayoutConstraint(
+        let imageWidthConstraint = NSLayoutConstraint(
             item: imageView,
             attribute: NSLayoutAttribute.Width,
             relatedBy: NSLayoutRelation.Equal,
@@ -72,7 +80,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             constant: 200
         )
         
-        var imageHeightConstraint = NSLayoutConstraint(
+        let imageHeightConstraint = NSLayoutConstraint(
             item: imageView,
             attribute: NSLayoutAttribute.Height,
             relatedBy: NSLayoutRelation.Equal,
@@ -105,6 +113,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             imageVerticalCenterConstraint, imageHorizontalCenterConstraint,
             imageWidthConstraint, imageHeightConstraint
         ])
+    }
+    
+    func setupTextFields() {
+        println("setup TextFields")
     }
 
 }
