@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     var imageView: UIImageView!
     var topTextField: UITextField!
@@ -18,9 +18,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
         setupUI()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardSubscribe()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        keyboardUnsubscribe()
     }
     
     // MARK: Button Actions
@@ -36,6 +42,42 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             imageView.image = image
             dismissViewControllerAnimated(true, completion: nil)
         }
+    }
+    
+    // MARK: Text Field Events
+    func textFieldDidBeginEditing(textField: UITextField) {
+        textField.text = ""
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        println("Done editing")
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Mark: Subscribe to Keyboard Notifications and hook into show/hide events
+    func keyboardSubscribe() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardUnsubscribe() {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        let keyboardHeight = notification.userInfo![UIKeyboardFrameEndUserInfoKey]?.CGRectValue().height
+        if bottomTextField.isFirstResponder() {
+            view.frame.origin.y -= keyboardHeight!
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        view.frame.origin.y = 0
     }
     
     // MARK: UI Setup
@@ -173,6 +215,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 NSStrokeWidthAttributeName : -3.0
             ]
             
+            textField.delegate = self
             textField.text = text
             textField.defaultTextAttributes = memeTextAttributes
             textField.autocapitalizationType = UITextAutocapitalizationType.AllCharacters
