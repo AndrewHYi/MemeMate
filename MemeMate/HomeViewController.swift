@@ -11,6 +11,8 @@ import UIKit
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var imageView: UIImageView!
+    var topTextField: UITextField!
+    var bottomTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +23,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.didReceiveMemoryWarning()
     }
     
+    // MARK: Button Actions
     func pickImage(sender: UIBarButtonItem) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
@@ -35,6 +38,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
+    // MARK: UI Setup
     private func setupUI() {
         setupToolbar()
         setupImageView()
@@ -56,8 +60,52 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         toolbar.frame = CGRectMake(0, self.view.frame.size.height - 46, self.view.frame.size.width, 48)
         toolbar.setItems([pickCameraImageButton, pickAlbumImageButton], animated: false)
         toolbar.backgroundColor = UIColor.grayColor()
+        toolbar.setTranslatesAutoresizingMaskIntoConstraints(false)
         
         view.addSubview(toolbar)
+        
+        // Toolbar constraints
+        let toolbarBottomConstraint = NSLayoutConstraint(
+            item: toolbar,
+            attribute: NSLayoutAttribute.Bottom,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1,
+            constant: 0
+        )
+        
+        let toolbarHeightConstraint = NSLayoutConstraint(
+            item: toolbar,
+            attribute: NSLayoutAttribute.Height,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1,
+            constant: 50
+        )
+        
+        let toolbarLeftConstraint = NSLayoutConstraint(
+            item: toolbar,
+            attribute: NSLayoutAttribute.LeadingMargin,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.LeadingMargin,
+            multiplier: 1,
+            constant: 0
+        )
+        
+        let toolbarRightConstraint = NSLayoutConstraint(
+            item: toolbar,
+            attribute: NSLayoutAttribute.TrailingMargin,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.TrailingMargin,
+            multiplier: 1,
+            constant: 0
+        )
+        
+        view.addConstraints([toolbarBottomConstraint, toolbarHeightConstraint, toolbarLeftConstraint, toolbarRightConstraint])
     }
     
     private func setupImageView() {
@@ -116,7 +164,97 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func setupTextFields() {
-        println("setup TextFields")
+        func setupTextField(textField: UITextField, text: String) {
+            let memeTextAttributes = [
+                NSStrokeColorAttributeName : UIColor.blackColor(),
+                NSForegroundColorAttributeName : UIColor.whiteColor(),
+                NSFontAttributeName : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+                NSStrokeWidthAttributeName : -3.0
+            ]
+            
+            textField.text = text
+            textField.defaultTextAttributes = memeTextAttributes
+            textField.autocapitalizationType = UITextAutocapitalizationType.AllCharacters
+            textField.textAlignment = NSTextAlignment.Center
+            textField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        }
+        
+        topTextField = UITextField()
+        bottomTextField = UITextField()
+        
+        setupTextField(topTextField, "TOP")
+        setupTextField(bottomTextField, "BOTTOM")
+        
+        view.addSubview(topTextField)
+        view.addSubview(bottomTextField)
+        
+        // Top text field constraints
+        let topTextTopConstraint = NSLayoutConstraint(
+            item: topTextField,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1,
+            constant: 70
+        )
+        
+        let topTextLeftConstraint = NSLayoutConstraint(
+            item: topTextField,
+            attribute: NSLayoutAttribute.LeadingMargin,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.LeadingMargin,
+            multiplier: 1,
+            constant: 10
+        )
+        
+        let topTextRightConstraint = NSLayoutConstraint(
+            item: topTextField,
+            attribute: NSLayoutAttribute.TrailingMargin,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.TrailingMargin,
+            multiplier: 1,
+            constant: -10
+        )
+        
+        // Bottom text field constraints
+        let bottomTextBottomConstraint = NSLayoutConstraint(
+            item: bottomTextField,
+            attribute: NSLayoutAttribute.Bottom,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1,
+            constant: -70
+        )
+        
+        let bottomTextLeftConstraint = NSLayoutConstraint(
+            item: bottomTextField,
+            attribute: NSLayoutAttribute.LeadingMargin,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.LeadingMargin,
+            multiplier: 1,
+            constant: 10
+        )
+        
+        let bottomTextRightConstraint = NSLayoutConstraint(
+            item: bottomTextField,
+            attribute: NSLayoutAttribute.TrailingMargin,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.TrailingMargin,
+            multiplier: 1,
+            constant: -10
+        )
+        
+        
+        view.addConstraints([
+            topTextTopConstraint, topTextLeftConstraint, topTextRightConstraint,
+            bottomTextBottomConstraint, bottomTextLeftConstraint, bottomTextRightConstraint
+        ])
     }
 
 }
