@@ -44,6 +44,33 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
+    func shareImage() {
+        println("Sharing image")
+    }
+    
+    func cancel() {
+        // TODO: Dismiss view and show the collection view again
+        println("Should cancel")
+    }
+    
+    // MARK: helper functions
+    
+    func saveImage() {
+        var meme = Meme(
+            topText: topTextField.text,
+            bottomText: bottomTextField.text,
+            image: generateMemedImage()
+        )
+    }
+    
+    func generateMemedImage() -> UIImage {
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
+        let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return memedImage
+    }
+    
     // MARK: Text Field Events
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
@@ -86,6 +113,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         setupImageView()
         setupTextFields()
         setupToolbar()
+        setupTopButtons()
     }
     
     private func setupToolbar() {
@@ -284,11 +312,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             constant: -10
         )
         
-        
         view.addConstraints([
             topTextTopConstraint, topTextLeftConstraint, topTextRightConstraint,
             bottomTextBottomConstraint, bottomTextLeftConstraint, bottomTextRightConstraint
         ])
+    }
+    
+    func setupTopButtons() {
+        let shareButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "shareImage")
+        let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancel")
+        
+        navigationItem.leftBarButtonItem = shareButton
+        navigationItem.rightBarButtonItem = cancelButton
     }
 
 }
