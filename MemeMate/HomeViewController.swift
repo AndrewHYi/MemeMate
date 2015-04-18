@@ -100,7 +100,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         // Disable camera button for devices without a camera
         pickCameraImageButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         
-        toolbar.frame = CGRectMake(0, self.view.frame.size.height - 46, self.view.frame.size.width, 48)
         toolbar.setItems([pickCameraImageButton, pickAlbumImageButton], animated: false)
         toolbar.backgroundColor = UIColor.grayColor()
         toolbar.setTranslatesAutoresizingMaskIntoConstraints(false)
@@ -118,37 +117,27 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             constant: 0
         )
         
-        let toolbarHeightConstraint = NSLayoutConstraint(
-            item: toolbar,
-            attribute: NSLayoutAttribute.Height,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: nil,
-            attribute: NSLayoutAttribute.NotAnAttribute,
-            multiplier: 1,
-            constant: 50
-        )
-        
         let toolbarLeftConstraint = NSLayoutConstraint(
             item: toolbar,
-            attribute: NSLayoutAttribute.LeadingMargin,
+            attribute: NSLayoutAttribute.Left,
             relatedBy: NSLayoutRelation.Equal,
             toItem: view,
-            attribute: NSLayoutAttribute.LeadingMargin,
+            attribute: NSLayoutAttribute.Left,
             multiplier: 1,
             constant: 0
         )
         
         let toolbarRightConstraint = NSLayoutConstraint(
             item: toolbar,
-            attribute: NSLayoutAttribute.TrailingMargin,
+            attribute: NSLayoutAttribute.Right,
             relatedBy: NSLayoutRelation.Equal,
             toItem: view,
-            attribute: NSLayoutAttribute.TrailingMargin,
+            attribute: NSLayoutAttribute.Right,
             multiplier: 1,
             constant: 0
         )
         
-        view.addConstraints([toolbarBottomConstraint, toolbarHeightConstraint, toolbarLeftConstraint, toolbarRightConstraint])
+        view.addConstraints([toolbarBottomConstraint, toolbarLeftConstraint, toolbarRightConstraint])
     }
     
     private func setupImageView() {
@@ -156,52 +145,53 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         imageView = UIImageView()
         imageView.backgroundColor = UIColor.grayColor()
         imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.contentMode = UIViewContentMode.ScaleAspectFill
+        imageView.backgroundColor = UIColor.grayColor()
         
         view.addSubview(imageView)
         
-        let imageVerticalCenterConstraint = NSLayoutConstraint(
-            item: imageView,
-            attribute: NSLayoutAttribute.CenterY,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.CenterY,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
-        let imageHorizontalCenterConstraint = NSLayoutConstraint(
-            item: imageView,
-            attribute: NSLayoutAttribute.CenterX,
-            relatedBy: NSLayoutRelation.Equal,
-            toItem: view,
-            attribute: NSLayoutAttribute.CenterX,
-            multiplier: 1.0,
-            constant: 0.0
-        )
-        
         let imageLeftConstraint = NSLayoutConstraint(
             item: imageView,
-            attribute: NSLayoutAttribute.LeadingMargin,
+            attribute: NSLayoutAttribute.Left,
             relatedBy: NSLayoutRelation.Equal,
             toItem: view,
-            attribute: NSLayoutAttribute.LeadingMargin,
+            attribute: NSLayoutAttribute.Left,
             multiplier: 1,
             constant: 0
         )
         
         let imageRightConstraint = NSLayoutConstraint(
             item: imageView,
-            attribute: NSLayoutAttribute.TrailingMargin,
+            attribute: NSLayoutAttribute.Right,
             relatedBy: NSLayoutRelation.Equal,
             toItem: view,
-            attribute: NSLayoutAttribute.TrailingMargin,
+            attribute: NSLayoutAttribute.Right,
+            multiplier: 1,
+            constant: 0
+        )
+        
+        let top = NSLayoutConstraint(
+            item: imageView,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1,
+            constant: 0
+        )
+        
+        let bottom = NSLayoutConstraint(
+            item: imageView,
+            attribute: NSLayoutAttribute.Bottom,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Bottom,
             multiplier: 1,
             constant: 0
         )
         
         view.addConstraints([
-            imageVerticalCenterConstraint, imageHorizontalCenterConstraint,
+            top, bottom,
             imageLeftConstraint, imageRightConstraint
         ])
     }
