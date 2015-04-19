@@ -51,11 +51,12 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     func shareImage() {
         let memedImage = generateMemedImage()
         let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        presentViewController(activityViewController, animated: true) {
-            self.saveImage(completion: {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            })
+        activityViewController.completionWithItemsHandler = {(activity, completed, returnedItems, error) in
+            if(completed) {
+                self.saveImage(memedImage) { self.dismissViewControllerAnimated(true, completion: nil) }
+            }
         }
+        presentViewController(activityViewController, animated: true, completion: nil)
     }
     
     func cancel() {
@@ -64,14 +65,15 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     // MARK: helper functions
-    func saveImage(completion: (()->())? = nil) {
+    func saveImage(memedImage: UIImage, completion: (()->())? = nil) {
         var meme = Meme(
             topText: topTextField.text,
             bottomText: bottomTextField.text,
-            image: generateMemedImage()
+            image: imageView.image!,
+            memedImage: memedImage
         )
         
-        (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes.append(meme)
+//        (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes.append(meme)
     }
     
     func generateMemedImage() -> UIImage {
