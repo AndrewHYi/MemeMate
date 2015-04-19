@@ -15,7 +15,14 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     var bottomTextField: UITextField!
     var shareButton: UIBarButtonItem!
     var toolbar: UIToolbar!
-    var memeToResend: Meme!
+    var meme: Meme!
+    var mode = Mode.New
+    var index: Int!
+    enum Mode {
+        case New
+        case Resend
+        case Edit
+    }
     
     // MARK: Lifecycle callbacks
     override func viewDidLoad() {
@@ -74,7 +81,11 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
             memedImage: memedImage
         )
         
-        (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes.append(meme)
+        if(mode == Mode.Edit) { // If edit mode, replace the old meme with the new edited one
+            (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes[index] = meme
+        } else {
+            (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes.append(meme)
+        }
     }
     
     func generateMemedImage() -> UIImage {
@@ -132,14 +143,19 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     private func setupResendMeme() {
-        if(memeToResend != nil){
-            self.title = "Resend Meme"
-            imageView.image = memeToResend.image
-            topTextField.text = memeToResend.topText
-            topTextField.enabled = false
-            bottomTextField.text = memeToResend.bottomText
-            bottomTextField.enabled = false
+        if(meme != nil){
+            imageView.image = meme.image
+            topTextField.text = meme.topText
+            bottomTextField.text = meme.bottomText
             shareButton.enabled = true
+        }
+        
+        if(mode == Mode.Resend) {
+            self.title = "Resend Meme"
+            topTextField.enabled = false
+            bottomTextField.enabled = false
+        } else if(mode == Mode.Edit) {
+           self.title = "Edit Meme"
         }
     }
     

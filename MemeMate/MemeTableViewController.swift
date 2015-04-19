@@ -58,10 +58,29 @@ class MemeTableViewController: UITableViewController {
         imgView.image = meme.memedImage
         imgView.contentMode = UIViewContentMode.ScaleAspectFit
         
+        let editButton = UIButton()
+        editButton.frame = CGRectMake(0, 0, 50, 90)
+        editButton.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
+        editButton.setTitle("Edit", forState: UIControlState.Normal)
+        editButton.addTarget(self, action: "edit:", forControlEvents: UIControlEvents.TouchUpInside)
+        editButton.tag = indexPath.row
+        
         cell.indentationLevel = 10
         cell.textLabel!.text = meme.combinedText
         cell.contentView.addSubview(imgView)
+        cell.accessoryView = editButton
+        
         return cell
+    }
+    
+    @IBAction func edit(sender: UIButton) {
+        let indexPathRow = sender.tag
+        let meme = memes[indexPathRow]
+        let editViewController = EditMemeViewController()
+        editViewController.meme = meme
+        editViewController.index = indexPathRow
+        editViewController.mode = EditMemeViewController.Mode.Edit
+        navigationController?.pushViewController(editViewController, animated: true)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -70,10 +89,10 @@ class MemeTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let meme = memes[indexPath.row]
-        let editViewController = EditMemeViewController()
-        editViewController.memeToResend = meme
-        navigationController?.title = "Resend Meme"
-        navigationController?.pushViewController(editViewController, animated: true)
+        let resendViewController = EditMemeViewController()
+        resendViewController.meme = meme
+        resendViewController.mode = EditMemeViewController.Mode.Resend
+        navigationController?.pushViewController(resendViewController, animated: true)
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
