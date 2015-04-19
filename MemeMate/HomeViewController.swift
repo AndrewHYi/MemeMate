@@ -13,7 +13,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     var imageView: UIImageView!
     var topTextField: UITextField!
     var bottomTextField: UITextField!
+    var shareButton: UIBarButtonItem!
+    var toolbar: UIToolbar!
     
+    // MARK: Lifecycle callbacks
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -40,12 +43,19 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.image = image
+            shareButton.enabled = true
             dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
     func shareImage() {
-        println("Sharing image")
+        let memedImage = generateMemedImage()
+        let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        presentViewController(activityViewController, animated: true) {
+            self.saveImage(completion: {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+        }
     }
     
     func cancel() {
@@ -54,30 +64,31 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     // MARK: helper functions
-    
-    func saveImage() {
+    func saveImage(completion: (()->())? = nil) {
         var meme = Meme(
             topText: topTextField.text,
             bottomText: bottomTextField.text,
             image: generateMemedImage()
         )
+        
+        (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes.append(meme)
     }
     
     func generateMemedImage() -> UIImage {
+        toolbar.hidden = true
+        
         UIGraphicsBeginImageContext(view.frame.size)
         view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
+        toolbar.hidden = false
         return memedImage
     }
     
     // MARK: Text Field Events
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.text = ""
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        println("Done editing")
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -118,7 +129,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     private func setupToolbar() {
         // Add a bottom toolbar with "pick" and "camera" options
-        let toolbar: UIToolbar = UIToolbar()
+        toolbar = UIToolbar()
         let pickAlbumImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickImage:")
         pickAlbumImageButton.tag = UIImagePickerControllerSourceType.PhotoLibrary.rawValue
         
@@ -319,7 +330,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func setupTopButtons() {
-        let shareButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "shareImage")
+        shareButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: "shareImage")
+        shareButton.enabled = false
         let cancelButton: UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancel")
         
         navigationItem.leftBarButtonItem = shareButton
