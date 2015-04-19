@@ -117,6 +117,7 @@ class MemeTableViewController: UITableViewController {
     
     // MARK: UI Setup
     func setupUI() {
+        self.title = "Sent Memes (Table)"
         // setup prototype cell
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "MemeCell")
         
