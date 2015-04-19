@@ -25,7 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tableViewController = MemeTableViewController()
         tableViewController.tabBarItem = UITabBarItem(title: "table", image: UIImage(named: "tableViewIcon"), tag: 1)
         
-        let collectionViewController = MemeCollectionViewController()
+        var flowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = CGSizeMake(80, 80)
+        let collectionViewController = MemeCollectionViewController(collectionViewLayout: flowLayout)
         collectionViewController.tabBarItem = UITabBarItem(title: "gallery", image: UIImage(named: "collectionViewIcon"), tag: 2)
         
         let tableNavController = UINavigationController(rootViewController: tableViewController)
