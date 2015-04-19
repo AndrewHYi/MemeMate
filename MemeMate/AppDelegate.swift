@@ -12,16 +12,24 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var mainNavController: UINavigationController?
+    var tabBarController: UITabBarController?
     var savedMemes: [Meme]!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        let initialViewController  = EditViewController()
-        mainNavController = UINavigationController()
-        mainNavController?.pushViewController(initialViewController, animated: false)
+        let tableViewController = MemeTableViewController()
+        tableViewController.tabBarItem = UITabBarItem(title: "table", image: UIImage(named: "tableViewIcon"), tag: 1)
+        
+        let collectionViewController = MemeCollectionViewController()
+        collectionViewController.tabBarItem = UITabBarItem(title: "gallery", image: UIImage(named: "collectionViewIcon"), tag: 2)
+        
+        let tableNavController = UINavigationController(rootViewController: tableViewController)
+        let collectionNavController = UINavigationController(rootViewController: collectionViewController)
+        
+        tabBarController = UITabBarController()
+        tabBarController?.setViewControllers([tableNavController, collectionNavController], animated: true)
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.rootViewController = mainNavController
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         return true
     }
