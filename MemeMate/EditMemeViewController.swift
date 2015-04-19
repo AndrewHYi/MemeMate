@@ -54,6 +54,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         activityViewController.completionWithItemsHandler = {(activity, completed, returnedItems, error) in
             if(completed) {
                 self.saveImage(memedImage)
+                self.navigationController?.popViewControllerAnimated(true)
             }
         }
         presentViewController(activityViewController, animated: true, completion: nil)
