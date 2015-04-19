@@ -15,13 +15,14 @@ class MemeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // If we don't have any memes, show the EditMemeController
+        memes = (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes
+        if(memes.count == 0) {
+            navigationController?.pushViewController(EditMemeViewController(), animated: false)
+            return
+        }
+        
         setupUI();
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(animated: Bool) {
