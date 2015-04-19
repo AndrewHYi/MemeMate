@@ -9,15 +9,24 @@
 import UIKit
 
 class MemeTableViewController: UITableViewController {
-
+    
+    var memes: [Meme]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupUI();
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        memes = (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,25 +39,38 @@ class MemeTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 0
+        return memes.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-
-        // Configure the cell...
-
+        let meme = memes[indexPath.row]
+        let cell = tableView.dequeueReusableCellWithIdentifier("MemeCell") as! UITableViewCell!
+        
+        var imgView = UIImageView(frame: CGRectMake(0,0,90,90));
+        imgView.backgroundColor = UIColor.blackColor()
+        imgView.layer.masksToBounds = true
+        imgView.image = meme.memedImage
+        imgView.contentMode = UIViewContentMode.ScaleAspectFit
+        
+        cell.indentationLevel = 10
+        cell.textLabel!.text = meme.combinedText
+        cell.contentView.addSubview(imgView)
         return cell
     }
-    */
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 90;
+    }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // TODO: to this
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -93,5 +115,21 @@ class MemeTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: Button Actions
+    func showEditView() {
+        let editViewController = EditMemeViewController()
+        editViewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(editViewController, animated: true)
+    }
+    
+    // MARK: UI Setup
+    func setupUI() {
+        // setup prototype cell
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "MemeCell")
+        
+        let addMemeButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "showEditView")
+        navigationItem.rightBarButtonItem = addMemeButton
+    }
 
 }

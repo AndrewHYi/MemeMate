@@ -53,15 +53,14 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         activityViewController.completionWithItemsHandler = {(activity, completed, returnedItems, error) in
             if(completed) {
-                self.saveImage(memedImage) { self.dismissViewControllerAnimated(true, completion: nil) }
+                self.saveImage(memedImage)
             }
         }
         presentViewController(activityViewController, animated: true, completion: nil)
     }
     
     func cancel() {
-        // TODO: Dismiss view and show the collection view again
-        println("Should cancel")
+        navigationController?.popViewControllerAnimated(true)
     }
     
     // MARK: helper functions

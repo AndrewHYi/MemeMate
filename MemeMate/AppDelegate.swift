@@ -16,6 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var savedMemes = [Meme]()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // test
+        var fakeMeme = Meme(topText: "Top Text", bottomText: "Bottom Text", image: UIImage(named: "test")!, memedImage: UIImage(named: "test")!)
+        var fakeMeme2 = Meme(topText: "Top Text", bottomText: "Bottom Text", image: UIImage(named: "test2")!, memedImage: UIImage(named: "test2")!)
+        savedMemes = [fakeMeme, fakeMeme, fakeMeme, fakeMeme, fakeMeme2]
+        
         // Override point for customization after application launch.
         let tableViewController = MemeTableViewController()
         tableViewController.tabBarItem = UITabBarItem(title: "table", image: UIImage(named: "tableViewIcon"), tag: 1)
