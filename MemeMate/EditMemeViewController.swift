@@ -73,7 +73,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
             memedImage: memedImage
         )
         
-//        (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes.append(meme)
+        (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes.append(meme)
     }
     
     func generateMemedImage() -> UIImage {
