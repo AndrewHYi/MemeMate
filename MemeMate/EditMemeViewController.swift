@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  EditMemeViewController.swift
 //  MemeMate
 //
 //  Created by Andrew H. Yi on 4/11/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     var imageView: UIImageView!
     var topTextField: UITextField!
