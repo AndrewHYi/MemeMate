@@ -15,6 +15,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     var bottomTextField: UITextField!
     var shareButton: UIBarButtonItem!
     var toolbar: UIToolbar!
+    var memeToResend: Meme!
     
     // MARK: Lifecycle callbacks
     override func viewDidLoad() {
@@ -127,6 +128,19 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         setupTextFields()
         setupToolbar()
         setupTopButtons()
+        setupResendMeme() // Needs to be last; otherwise the various UIViews would be nil
+    }
+    
+    private func setupResendMeme() {
+        if(memeToResend != nil){
+            self.title = "Resend Meme"
+            imageView.image = memeToResend.image
+            topTextField.text = memeToResend.topText
+            topTextField.enabled = false
+            bottomTextField.text = memeToResend.bottomText
+            bottomTextField.enabled = false
+            shareButton.enabled = true
+        }
     }
     
     private func setupToolbar() {

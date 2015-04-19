@@ -69,7 +69,11 @@ class MemeTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // TODO: to this
+        let meme = memes[indexPath.row]
+        let editViewController = EditMemeViewController()
+        editViewController.memeToResend = meme
+        navigationController?.title = "Resend Meme"
+        navigationController?.pushViewController(editViewController, animated: true)
     }
     /*
     // Override to support conditional editing of the table view.
