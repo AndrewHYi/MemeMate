@@ -165,13 +165,16 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         let pickAlbumImageButton = UIBarButtonItem(title: "Album", style: .Done, target: self, action: "pickImage:")
         pickAlbumImageButton.tag = UIImagePickerControllerSourceType.PhotoLibrary.rawValue
         
-        let pickCameraImageButton = UIBarButtonItem(title: "Camera", style: .Done, target: self, action: "pickImage:")
+        let pickCameraImageButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "pickImage:")
         pickCameraImageButton.tag = UIImagePickerControllerSourceType.Camera.rawValue
         
         // Disable camera button for devices without a camera
         pickCameraImageButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         
-        toolbar.setItems([pickCameraImageButton, pickAlbumImageButton], animated: false)
+        // Flex space for centering the toolbar buttons
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        
+        toolbar.setItems([flexSpace, pickCameraImageButton, flexSpace, pickAlbumImageButton, flexSpace], animated: false)
         toolbar.backgroundColor = UIColor.grayColor()
         toolbar.setTranslatesAutoresizingMaskIntoConstraints(false)
         
