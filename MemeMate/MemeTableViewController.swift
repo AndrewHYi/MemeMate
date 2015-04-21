@@ -15,14 +15,17 @@ class MemeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI();
+        
         // If we don't have any memes, show the EditMemeController
         memes = (UIApplication.sharedApplication().delegate as! AppDelegate).savedMemes
         if(memes.count == 0) {
-            navigationController?.pushViewController(EditMemeViewController(), animated: false)
+            let editViewController = EditMemeViewController()
+            editViewController.hidesBottomBarWhenPushed = true
+            navigationController?.pushViewController(editViewController, animated: false)
             return
         }
         
-        setupUI();
     }
     
     override func viewWillAppear(animated: Bool) {
