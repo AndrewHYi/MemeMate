@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BA8C0C81AE5EDBB009700C5 /* Impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BA8C0C71AE5EDBB009700C5 /* Impact.ttf */; };
 		0BDED23E1AE2D07E00B17A66 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDED23D1AE2D07E00B17A66 /* Meme.swift */; };
 		0BDED2481AE32C8600B17A66 /* MemeCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDED2471AE32C8600B17A66 /* MemeCollectionViewController.swift */; };
 		0BDED24A1AE32C9800B17A66 /* MemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDED2491AE32C9800B17A66 /* MemeTableViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0BA8C0C71AE5EDBB009700C5 /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
 		0BDED23D1AE2D07E00B17A66 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 		0BDED2471AE32C8600B17A66 /* MemeCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeCollectionViewController.swift; sourceTree = "<group>"; };
 		0BDED2491AE32C9800B17A66 /* MemeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		4075180C1AD999B600C064FE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0BA8C0C71AE5EDBB009700C5 /* Impact.ttf */,
 				4075180D1AD999B600C064FE /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -214,6 +217,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BA8C0C81AE5EDBB009700C5 /* Impact.ttf in Resources */,
 				407518191AD999B600C064FE /* LaunchScreen.xib in Resources */,
 				407518161AD999B600C064FE /* Images.xcassets in Resources */,
 			);
